@@ -31,29 +31,99 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+      const list = inventors.filter(function(inventor) {
+        if(inventor.year >= 1500 && inventor.year <= 1599){
+          return true;
+        }
+      });
+     // console.table(list);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+      const nameList = inventors.map(function(arr) {
+        return arr.first + ' ' + arr.last; 
+      })
+      //console.log(nameList);
+      //console.table(nameList);
+
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+      const orderByOldest = inventors.sort(function(preVal, currVal) {
+        return preVal.year - currVal.year;
+      })
+      console.table(orderByOldest);
+      
+      //the way as per WesBos...
+      const ordered = inventors.sort(function(a,b) {
+        if(a.year > b.year){
+          return 1;
+        } else {
+          return -1;
+        }
+      })
+      console.table(ordered);
+
+      //the shortened way as per WesBos...
+      const oldList = inventors.sort((a,b) => a.year > b.year ? 1 : -1);
+      console.table(oldList);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+      const sumYears = inventors.reduce(function(total, inventor) {
+        return total + (inventor.passed - inventor.year)
+      }, 0);
+      console.log(sumYears);
+
 
     // 5. Sort the inventors by years lived
+      const listByYearsLived = inventors.sort(function(preVal, currVal) {
+        const last = preVal.passed - preVal.year;
+        const next = currVal.passed - currVal.year;
+        if(last > next){
+          return -1
+        } else {
+          return 1
+        }
+      });
+      console.table(listByYearsLived);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+    /*
+    const category = document.querySelector('.mw-category');
+    const links = Array.from(category.querySelectorAll('a'));
+    const text = links.map(function(a) {
+        return a.textContent;
+       });
+    const streetList = text.filter(function(streetName) {
+         return streetName.includes('de');
+        });
+    console.log(streetList);// this doesnt work in the IDE but works in the browser console...he speaks about it @ 16:52
+    */
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const peopleSorted = people.sort(function(preVal, currVal) {
+      let [aLast, aFirst] = preVal.split(", ");
+      let [bLast, bFirst] = currVal.split(", ");
+      return aLast < bLast ? -1 : 1;
+    });
+    console.log(peopleSorted);
+
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
+    const dataList = data.reduce(function(obj, item) {
+      if(!obj[item]){
+        obj[item] = 0;
+      }
+      obj[item]++;
+      return obj;
+    }, {});
+    console.log(dataList);
   </script>
 </body>
 </html>
